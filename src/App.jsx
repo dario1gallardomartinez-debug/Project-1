@@ -53,7 +53,7 @@ export default function App() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todos');
 
   // Número de WhatsApp para recibir consultas
-  const numerowhatsapp = "59100000000";
+  const numerowhatsapp = "591 63173406";
 
   const fetchLaptops = async () => {
     setLoading(true);
