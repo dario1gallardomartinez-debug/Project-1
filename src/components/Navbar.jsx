@@ -15,7 +15,7 @@ export default function Navbar({ moneda, setMoneda, numerowhatsapp }) {
           <div>
             <h1 className="font-bold text-lg leading-tight bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
               {/* Cambia el nombre de tu tienda aquí */}
-              TECHSTORE <span className="text-cyan-400">LAPTOPS</span>
+              IMPORTADORA <span className="text-cyan-400">LAPTOPS GAMERS</span>
             </h1>
             <p className="text-[10px] text-zinc-400 flex items-center gap-1">
               <ShieldCheck className="w-3 h-3 text-emerald-400" /> Equipos 100% Garantizados
