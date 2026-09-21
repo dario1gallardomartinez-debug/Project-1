@@ -2,16 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import LaptopCard from './components/LaptopCard';
 import ModalDetail from './components/ModalDetail';
-import { RefreshCw, AlertCircle, Search, SlidersHorizontal } from 'lucide-react';
 import ContactSection from './components/ContactSection';
+import { RefreshCw, AlertCircle, Search, SlidersHorizontal } from 'lucide-react';
 
-// 1. ENLACE PUBLICADO DE GOOGLE SHEETS
 const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTIHz14NQCIQ05KcKdquvghva0nCU-eQIHm2F3WQ6DhFcVdI-UlFQGXaAPDjPGh0aYu2UUgNNYACh_N/pub?gid=0&single=true&output=csv";
+const TIPO_CAMBIO_BOB = 9.5;
 
-// 2. CONFIGURACIÓN DEL TIPO DE CAMBIO
-const TIPO_CAMBIO_BOB = 9.5; // 1 USD = 9.5 BOB
-
-// Parser para procesar el formato CSV
 function parseCSV(csvText) {
   const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== '');
   if (lines.length < 2) return [];
@@ -49,14 +45,11 @@ export default function App() {
   const [moneda, setMoneda] = useState('BOB');
   const [selectedLaptop, setSelectedLaptop] = useState(null);
   
-  // Filtros
   const [searchTerm, setSearchTerm] = useState('');
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todos');
 
-  // Número principal para los botones individuales de las laptops
   const numerowhatsapp = "59163173406";
 
-  // Lista de los 3 números para la sección de Contacto (Reemplaza los 2 adicionales por los reales)
   const numerosWhatsapp = [
     { numero: "59163173406", etiqueta: "Ventas y Consultas 1" },
     { numero: "59170000000", etiqueta: "Ventas y Consultas 2" },
@@ -148,7 +141,6 @@ export default function App() {
       />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {/* Buscador y Filtros */}
         <div className="mb-8 space-y-4">
           <div className="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
             <div className="relative flex-1 max-w-md">
@@ -181,7 +173,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* Carga */}
         {loading && (
           <div className="flex flex-col items-center justify-center py-20 gap-4 text-zinc-400">
             <RefreshCw className="h-8 w-8 animate-spin text-cyan-500" />
@@ -189,7 +180,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Mensaje de Error */}
         {!loading && error && (
           <div className="bg-red-950/40 border border-red-800 rounded-2xl p-6 text-center max-w-lg mx-auto my-12">
             <AlertCircle className="h-10 w-10 text-red-500 mx-auto mb-3" />
@@ -204,14 +194,12 @@ export default function App() {
           </div>
         )}
 
-        {/* Sin Resultados */}
         {!loading && !error && filteredLaptops.length === 0 && (
           <div className="text-center py-16 bg-zinc-900/40 rounded-2xl border border-zinc-800/60">
             <p className="text-zinc-400 text-sm">No se encontraron laptops que coincidan con la búsqueda.</p>
           </div>
         )}
 
-        {/* Grid de Laptops */}
         {!loading && !error && filteredLaptops.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredLaptops.map((laptop) => (
@@ -227,7 +215,6 @@ export default function App() {
         )}
       </main>
 
-      {/* Modal de Detalle */}
       {selectedLaptop && (
         <ModalDetail
           laptop={selectedLaptop}
@@ -237,8 +224,10 @@ export default function App() {
         />
       )}
 
-      {/* SECCIÓN DE CONTACTO CON LOS 3 NÚMEROS */}
-      <ContactSection numerosWhatsapp={numerosWhatsapp} />
+      <ContactSection 
+        numerosWhatsapp={numerosWhatsapp} 
+        numerowhatsapp={numerowhatsapp} 
+      />
     </div>
   );
 }

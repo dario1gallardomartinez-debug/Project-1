@@ -2,18 +2,22 @@ import React from 'react';
 import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook, ExternalLink } from 'lucide-react';
 
 export default function ContactSection({ 
-  numerosWhatsapp = [
-    { numero: "59163173406", etiqueta: "Atención / Ventas 1" },
-    { numero: "59170000000", etiqueta: "Atención / Ventas 2" },
-    { numero: "59171111111", etiqueta: "Soporte y Cotizaciones" }
-  ]
+  numerosWhatsapp,
+  numerowhatsapp = "59163173406"
 }) {
+  // Si no recibe un arreglo, usa por defecto los 3 números
+  const listaNumeros = Array.isArray(numerosWhatsapp) ? numerosWhatsapp : [
+    { numero: numerowhatsapp || "59163173406", etiqueta: "Ventas y Consultas 1" },
+    { numero: "59170000000", etiqueta: "Ventas y Consultas 2" },
+    { numero: "59171111111", etiqueta: "Soporte y Pedidos" }
+  ];
+
   const redesSociales = {
-    facebook: "https://facebook.com/tu-pagina",      // Cambia por tu URL de Facebook
-    instagram: "https://instagram.com/tu-usuario",   // Cambia por tu URL de Instagram
-    tiktok: "https://tiktok.com/@tu-usuario",        // Cambia por tu URL de TikTok
-    email: "contacto@techstore.com",                 // Cambia por tu correo
-    direccion: "La Paz, Bolivia"                     // Tu ciudad o dirección
+    facebook: "https://facebook.com/tu-pagina",
+    instagram: "https://instagram.com/tu-usuario",
+    tiktok: "https://tiktok.com/@tu-usuario",
+    email: "contacto@techstore.com",
+    direccion: "La Paz, Bolivia"
   };
 
   const crearEnlaceWa = (num) => 
@@ -24,7 +28,7 @@ export default function ContactSection({
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
           
-          {/* COLUMNA 1: Información de Contacto General */}
+          {/* COLUMNA 1: Información General */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-white flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
@@ -65,7 +69,7 @@ export default function ContactSection({
             </div>
 
             <div className="space-y-2.5">
-              {numerosWhatsapp.map((item, index) => (
+              {listaNumeros.map((item, index) => (
                 <a
                   key={index}
                   href={crearEnlaceWa(item.numero)}
@@ -94,7 +98,6 @@ export default function ContactSection({
             </p>
             
             <div className="flex flex-col gap-2.5">
-              {/* Facebook */}
               <a
                 href={redesSociales.facebook}
                 target="_blank"
@@ -110,7 +113,6 @@ export default function ContactSection({
                 <ExternalLink className="w-4 h-4 text-zinc-500 group-hover:text-zinc-300 transition" />
               </a>
 
-              {/* Instagram */}
               <a
                 href={redesSociales.instagram}
                 target="_blank"
@@ -126,7 +128,6 @@ export default function ContactSection({
                 <ExternalLink className="w-4 h-4 text-zinc-500 group-hover:text-zinc-300 transition" />
               </a>
 
-              {/* TikTok */}
               <a
                 href={redesSociales.tiktok}
                 target="_blank"
@@ -148,9 +149,8 @@ export default function ContactSection({
 
         </div>
 
-        {/* Derechos de Autor */}
         <div className="border-t border-zinc-800/80 pt-6 text-center text-xs text-zinc-500">
-          &copy; {new Date().getFullYear()} TECHSTORE LAPTOPS. Todos los derechos reservados.
+          © {new Date().getFullYear()} TECHSTORE LAPTOPS. Todos los derechos reservados.
         </div>
       </div>
     </footer>
