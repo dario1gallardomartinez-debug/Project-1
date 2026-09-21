@@ -4,11 +4,12 @@ import LaptopCard from './components/LaptopCard';
 import ModalDetail from './components/ModalDetail';
 import { RefreshCw, AlertCircle, Search, SlidersHorizontal } from 'lucide-react';
 import ContactSection from './components/ContactSection';
-// 1. TU ENLACE PUBLICADO DE GOOGLE SHEETS
+
+// 1. ENLACE PUBLICADO DE GOOGLE SHEETS
 const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTIHz14NQCIQ05KcKdquvghva0nCU-eQIHm2F3WQ6DhFcVdI-UlFQGXaAPDjPGh0aYu2UUgNNYACh_N/pub?gid=0&single=true&output=csv";
 
-// 2. CONFIGURACIÓN DEL TIPO DE CAMBIO (Ajusta este valor si deseas cálculo automático)
-const TIPO_CAMBIO_BOB = 9.5; // 1 USD = 9.5 BOB (o el valor del mercado actual)
+// 2. CONFIGURACIÓN DEL TIPO DE CAMBIO
+const TIPO_CAMBIO_BOB = 9.5; // 1 USD = 9.5 BOB
 
 // Parser para procesar el formato CSV
 function parseCSV(csvText) {
@@ -52,8 +53,15 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todos');
 
-  // Número de WhatsApp para recibir consultas
+  // Número principal para los botones individuales de las laptops
   const numerowhatsapp = "59163173406";
+
+  // Lista de los 3 números para la sección de Contacto (Reemplaza los 2 adicionales por los reales)
+  const numerosWhatsapp = [
+    { numero: "59163173406", etiqueta: "Ventas y Consultas 1" },
+    { numero: "59170000000", etiqueta: "Ventas y Consultas 2" },
+    { numero: "59171111111", etiqueta: "Soporte y Pedidos" }
+  ];
 
   const fetchLaptops = async () => {
     setLoading(true);
@@ -71,7 +79,6 @@ export default function App() {
           const rawUSD = Number(item.preciousd) || 0;
           const rawBOB = Number(item.preciobob) || 0;
 
-          // Si falta el precio en BOB, lo calcula con el Tipo de Cambio
           const finalUSD = rawUSD || (rawBOB > 0 ? Number((rawBOB / TIPO_CAMBIO_BOB).toFixed(2)) : 0);
           const finalBOB = rawBOB || (rawUSD > 0 ? Math.round(rawUSD * TIPO_CAMBIO_BOB) : 0);
 
@@ -113,10 +120,8 @@ export default function App() {
     fetchLaptops();
   }, []);
 
-  // Obtener la lista única de categorías de los datos cargados
   const categorias = ['Todos', ...new Set(laptops.map(l => l.uso).filter(Boolean))];
 
-  // Lógica del buscador y filtros por categoría
   const filteredLaptops = laptops.filter((laptop) => {
     const term = searchTerm.toLowerCase().trim();
     
@@ -143,10 +148,9 @@ export default function App() {
       />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {/* Barra de Búsqueda y Filtros de Categoría */}
+        {/* Buscador y Filtros */}
         <div className="mb-8 space-y-4">
           <div className="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
-            {/* Buscador */}
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3.5 top-3 h-4 w-4 text-zinc-400" />
               <input
@@ -158,7 +162,6 @@ export default function App() {
               />
             </div>
 
-            {/* Categorías (Botones de Filtro) */}
             <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
               <SlidersHorizontal className="w-4 h-4 text-zinc-400 shrink-0 mr-1 hidden sm:block" />
               {categorias.map((cat) => (
@@ -201,14 +204,14 @@ export default function App() {
           </div>
         )}
 
-        {/* Sin resultados de búsqueda */}
+        {/* Sin Resultados */}
         {!loading && !error && filteredLaptops.length === 0 && (
           <div className="text-center py-16 bg-zinc-900/40 rounded-2xl border border-zinc-800/60">
             <p className="text-zinc-400 text-sm">No se encontraron laptops que coincidan con la búsqueda.</p>
           </div>
         )}
 
-        {/* Grid de Productos */}
+        {/* Grid de Laptops */}
         {!loading && !error && filteredLaptops.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredLaptops.map((laptop) => (
@@ -224,6 +227,7 @@ export default function App() {
         )}
       </main>
 
+      {/* Modal de Detalle */}
       {selectedLaptop && (
         <ModalDetail
           laptop={selectedLaptop}
@@ -233,8 +237,8 @@ export default function App() {
         />
       )}
 
-      {/* SECCIÓN DE CONTACTO */}
-      <ContactSection numerowhatsapp={numerowhatsapp} />
+      {/* SECCIÓN DE CONTACTO CON LOS 3 NÚMEROS */}
+      <ContactSection numerosWhatsapp={numerosWhatsapp} />
     </div>
   );
 }
