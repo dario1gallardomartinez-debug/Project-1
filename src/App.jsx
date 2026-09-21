@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import LaptopCard from './components/LaptopCard';
 import ModalDetail from './components/ModalDetail';
 import { RefreshCw, AlertCircle, Search, SlidersHorizontal } from 'lucide-react';
-
+import ContactSection from './components/ContactSection';
 // 1. TU ENLACE PUBLICADO DE GOOGLE SHEETS
 const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTIHz14NQCIQ05KcKdquvghva0nCU-eQIHm2F3WQ6DhFcVdI-UlFQGXaAPDjPGh0aYu2UUgNNYACh_N/pub?gid=0&single=true&output=csv";
 
@@ -232,6 +232,9 @@ export default function App() {
           numerowhatsapp={numerowhatsapp}
         />
       )}
+
+      {/* SECCIÓN DE CONTACTO */}
+      <ContactSection numerowhatsapp={numerowhatsapp} />
     </div>
   );
 }
