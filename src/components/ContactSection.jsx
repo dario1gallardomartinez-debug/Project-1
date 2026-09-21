@@ -16,7 +16,9 @@ export default function ContactSection({
     instagram: "https://instagram.com/tu-usuario",
     tiktok: "https://tiktok.com/@tu-usuario",
     email: "contacto@techstore.com",
-    direccion: "La Paz, Bolivia"
+    direccion: "La Paz, Bolivia",
+    // ENLACE A GOOGLE MAPS (puedes cambiarlo por el enlace exacto de tu tienda si tienes uno)
+    googleMaps: "https://maps.google.com/?q=La+Paz,+Bolivia"
   };
 
   const crearEnlaceWa = (num) => 
@@ -37,6 +39,7 @@ export default function ContactSection({
               Estamos listos para asesorarte y ayudarte a elegir la laptop ideal.
             </p>
             <div className="space-y-3 text-sm">
+              {/* Correo Electrónico */}
               <a 
                 href={`mailto:${redesSociales.email}`}
                 className="flex items-center gap-3 text-zinc-300 hover:text-cyan-400 transition"
@@ -47,12 +50,22 @@ export default function ContactSection({
                 <span>{redesSociales.email}</span>
               </a>
 
-              <div className="flex items-center gap-3 text-zinc-300">
-                <div className="p-2 bg-zinc-800 rounded-lg text-zinc-400">
+              {/* Ubicación con enlace directo a Google Maps */}
+              <a 
+                href={redesSociales.googleMaps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-zinc-300 hover:text-cyan-400 transition group"
+                title="Ver ubicación en Google Maps"
+              >
+                <div className="p-2 bg-zinc-800 group-hover:bg-cyan-500/10 group-hover:text-cyan-400 rounded-lg text-zinc-400 transition">
                   <MapPin className="w-4 h-4" />
                 </div>
-                <span>{redesSociales.direccion}</span>
-              </div>
+                <span className="group-hover:underline underline-offset-4">
+                  {redesSociales.direccion}
+                </span>
+                <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-cyan-400 transition ml-auto" />
+              </a>
             </div>
           </div>
 
