@@ -28,7 +28,7 @@ export default function Navbar({ moneda, setMoneda, numerowhatsapp }) {
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-xs font-semibold text-zinc-300 hover:text-white transition"
           >
             <PhoneCall className="w-3.5 h-3.5 text-cyan-400" />
-            Cont&aacute;ctanos
+            Contáctanos
           </a>
 
           <div className="bg-zinc-900 border border-zinc-800 p-1 rounded-lg flex text-xs font-semibold">
